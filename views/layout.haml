@@ -2,8 +2,28 @@
   %head
     %title whoisjohnbarton?
     %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/styles.css' }
-  .content
-    = yield
+  %body
+    .header
+      %h1
+        %a{ :href => '/'}
+          whoisjohnbarton.com
+      %ul
+        %li
+          %a{ :href => '/posts' }
+            [BLOG]
+        %li
+          %a{ :href => 'http://flickr.com/photos/johotravels' }
+            [FLICKR]
+        %li
+          %a{ :href => 'http://twitter.com/johnbarton' }
+            [TWITTER]
+        %li
+          %a{ :href => 'http://jrb.tumblr.com' }
+            [TUMBLR]
+    .blog_content_wrap
+      .blog_content
+        =yield
+    .footer
   %script{ :src => 'http://www.google-analytics.com/urchin.js', :type => 'text/javascript' }
   :javascript
     _uacct = "UA-708262-2";

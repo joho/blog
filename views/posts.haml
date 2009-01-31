@@ -1,5 +1,6 @@
 - @posts.each do |post|
   .post
-    %h3 post.title
-    .body
-      = post.body
+    %h3 
+      %a{ :href => "/posts/#{post.to_param}" }
+        =post.title
+    %hr

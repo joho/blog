@@ -1,30 +1,41 @@
-%ul
-  %li 
-    %a{ :href => 'http://flickr.com/photos/johotravels', :title => 'My Flickr' }
-      [FLICKR]
-  %li 
-    %a{ :href => 'http://alltimetop5.com', :title => 'Alltimetop5.com'}
-      [ALLTIMETOP5]
-  %li 
-    %a{ :href => 'http://twitter.com/johnbarton', :title => 'My Twitter' }
-      [TWITTER]
+%html{html_attrs('en-AU')}
+  %head
+    %title whoisjohnbarton?
+    %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/styles.css' }
+  %body
+    .content
+      %ul
+        %li 
+          %a{ :href => '/posts', :title => 'Blog' }
+            [BLOG]
+        %li 
+          %a{ :href => 'http://flickr.com/photos/johotravels', :title => 'My Flickr' }
+            [FLICKR]
+        %li 
+          %a{ :href => 'http://twitter.com/johnbarton', :title => 'My Twitter' }
+            [TWITTER]
 
-%p
-  I'm a web developer currently based in <span class="green">Melbourne, Australia</span>
+      %p
+        I'm a web developer currently based in <span class="green">Melbourne, Australia</span>
 
-  who specialises in Ruby on Rails and(formerly) ASP.NET development. 
-  As far as availability for work goes at the moment I am 
-  <span class="green">fulltime at <a href="http://eden.cc/">Eden</a> 
-  primarily on <a href="http://flashden.net/">Flashden</a></span>.
-  My process for building web applications is simple. We sit down and 
-  talk about the big picture of your application. Then I build 
-  something quickly that moves us closer to the big picture. Then we 
-  sit down and talk again to see if we're on the right track. 
-  Then I go back and build on that.
-  Lather, rinse, repeat until together we've built the best web app we can for you.
+        who specialises in Ruby on Rails and(formerly) ASP.NET development. 
+        As far as availability for work goes at the moment I am 
+        <span class="green">fulltime at <a href="http://eden.cc/">Eden</a> 
+        primarily on <a href="http://flashden.net/">Flashden</a></span>.
+        My process for building web applications is simple. We sit down and 
+        talk about the big picture of your application. Then I build 
+        something quickly that moves us closer to the big picture. Then we 
+        sit down and talk again to see if we're on the right track. 
+        Then I go back and build on that.
+        Lather, rinse, repeat until together we've built the best web app we can for you.
 
-%h1 www.whoisjohnbarton.com
+      %h1 www.whoisjohnbarton.com
 
-%p
-  If you're interested in talking about what I can do for you just email me at 
-  <span class="green">jrbarton@gmail.com</span> to organise a quick chat.
+      %p
+        If you're interested in talking about what I can do for you just email me at 
+        <span class="green">jrbarton@gmail.com</span> to organise a quick chat.
+    
+  %script{ :src => 'http://www.google-analytics.com/urchin.js', :type => 'text/javascript' }
+  :javascript
+    _uacct = "UA-708262-2";
+    urchinTracker();
