@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'sinatra'
+require 'yaml'
 require 'activerecord'
+require 'digest/md5'
 
 ActiveRecord::Base.establish_connection(
   :adapter => 'sqlite3',
@@ -16,7 +18,22 @@ class Post < ActiveRecord::Base
 end
 
 class Author
-  def self.authenticate(username, password)
+  def self.is_authenticated?(supplied_auth_key)
+    hash_this_key == supplied_auth_key
+  end
+  
+  def self.auth_key
+    @@auth_key ||= YAML::load_file(File.dirname(__FILE__) + '/secret.yml')["auth_key"]
+  end
+  
+  def self.hash_this_key(key = auth_key)
+    Digest::MD5.hexdigest("--johnrules--#{key}")
+  end
+end
+
+helpers do
+  def ensure_author!
+    halt 403, "Hell No!" unless Author.is_authenticated?(request.cookies['auth_key'])
   end
 end
 
@@ -24,21 +41,13 @@ get '/' do
   haml :index, :layout => false
 end
 
-get '/posts/new' do
-  "this is where you'll write a post"
+get "/huh" do
+  Author.auth_key
 end
 
-post '/posts/new' do
-  "post for a post"
-end
-
-get '/posts/:id/edit' do
-  @post = Post.find params[:id]
-  "edit a post"
-end
-
-post '/posts/:id/edit' do
-  @post = Post.find params[:id]
+get "/auth/#{Author.auth_key}" do
+  set_cookie("auth_key", Author.hash_this_key)
+  "welcome back, dr. falken"
 end
 
 get '/posts' do
@@ -54,4 +63,21 @@ end
 get '/styles.css' do
   content_type 'text/css', :charset => 'utf-8'
   sass :styles
+end
+
+# admin system
+
+get '/admin/new_post' do
+  ensure_author!
+  "post for a post"
+end
+
+post '/admin/new_post' do
+  ensure_author!
+end
+
+get '/admin/edit_post/:id' do
+  ensure_author!
+  @post = Post.find params[:id]
+  "edit a post"
 end
