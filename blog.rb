@@ -81,3 +81,12 @@ get '/admin/edit_post/:id' do
   @post = Post.find params[:id]
   "edit a post"
 end
+
+get '/geoCheck' do
+<<-EOL
+<?xml version="1.0" encoding="UTF-8"?>
+<geocheck>
+<status>valid</status>
+</geocheck>
+EOL
+end
