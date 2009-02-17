@@ -92,7 +92,7 @@ get '/geoCheck' do
 EOL
 end
 
-get 'crossdomain.xml' do
+get '/crossdomain.xml' do
 <<-EOL
 <?xml version="1.0"?>
 <!-- used for controlling cross-domain data loading in Macromedia Flash -->
