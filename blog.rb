@@ -82,11 +82,22 @@ get '/admin/edit_post/:id' do
   "edit a post"
 end
 
+# personal hulu location crap avoider
 get '/geoCheck' do
 <<-EOL
 <?xml version="1.0" encoding="UTF-8"?>
 <geocheck>
 <status>valid</status>
 </geocheck>
+EOL
+end
+
+get 'crossdomain.xml' do
+<<-EOL
+<?xml version="1.0"?>
+<!-- used for controlling cross-domain data loading in Macromedia Flash -->
+<cross-domain-policy>
+  <allow-access-from domain="*" />
+</cross-domain-policy>
 EOL
 end
