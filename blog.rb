@@ -83,7 +83,7 @@ get '/admin/edit_post/:id' do
   "edit a post"
 end
 
-get '/tramtracker.php' do
-  content_type 'text/html', :charset => 'utf-8'
+get '/tramtracker' do
+  halt 403, 'get stuffed!' unless request.ip == '203.206.131.48'
   open("http://tramtracker.com/#{params[:path]}").read
 end
