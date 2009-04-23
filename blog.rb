@@ -3,6 +3,7 @@ require 'sinatra'
 require 'yaml'
 require 'activerecord'
 require 'digest/md5'
+require 'open-uri'
 
 ActiveRecord::Base.establish_connection(
   :adapter => 'sqlite3',
@@ -80,4 +81,9 @@ get '/admin/edit_post/:id' do
   ensure_author!
   @post = Post.find params[:id]
   "edit a post"
+end
+
+get '/tramtracker.php' do
+  content_type 'text/html', :charset => 'utf-8'
+  open("http://tramtracker.com/#{params[:path]}").read
 end
