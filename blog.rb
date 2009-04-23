@@ -84,6 +84,6 @@ get '/admin/edit_post/:id' do
 end
 
 get '/tramtracker' do
-  halt 403, 'get stuffed!' unless env['REMOTE_ADDR'] == '203.206.131.48'
+  halt 403, "get stuffed #{env['REMOTE_ADDR']}!" unless env['REMOTE_ADDR'] == '203.206.131.48'
   open("http://tramtracker.com/#{params[:path]}").read
 end
