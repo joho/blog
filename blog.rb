@@ -13,8 +13,11 @@ get '/' do
 end
 
 get '/posts' do
-  # need to order these by created time
-  file_names = Dir.entries('posts').select {|p| p =~ /\.md/}
+  file_names = Dir.entries('posts').select do |entry| 
+    entry =~ /\.md/
+  end.sort_by do |file_name|
+    File.ctime("posts/#{file_name}")
+  end
   
   @posts = file_names.collect do |e|
     doc = Hpricot(load_html("posts/#{e}"))
