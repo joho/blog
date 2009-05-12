@@ -1,0 +1,24 @@
+!!! xml
+%feed{:xmlns => "http://www.w3.org/2005/Atom"}
+ 
+  %title whoisjohnbarton's posts
+  %link{:href => "http://whoisjohnbarton.com/feed", :rel => "self", :hreflang => "en", :type => "application/atom+xml"}/
+  %link{:href => "http://whoisjohnbarton.com/posts", :rel => "alternate", :hreflang => "en", :type => "text/html"}/
+   
+  %author
+    %name John Barton
+    %uri http://whoisjohnbarton.com/
+    %email jrbarton@gmail.com
+ 
+  %id tag:whoisjohnbarton.com,2009-05-12:/posts
+  %updated= @updated_date
+ 
+  - for post in @posts
+    %entry
+      %id== tag:whoisjohnbarton.com,2009-05-12:/posts:#{post[:file_name]}
+      %title{:type => "html"}= post[:title]
+      %published= post[:published]
+      %updated= (post[:updated] || post[:published]).xmlschema
+      %link{:href => "http://whoisjohnbarton.com/posts/#{post[:file_name]}", :rel => "alternate", :hreflang => "en", :type => "text/html"}/
+      %content{:type => "xhtml", "xml:lang"=>"en", "xml:base"=>"http://whoisjohnbarton.com/"}
+        %div{:xmlns => "http://www.w3.org/1999/xhtml"}= post[:body]
