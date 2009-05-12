@@ -11,6 +11,11 @@ ActiveRecord::Base.establish_connection(
   :dbfile =>  'blog.db'
 )
 
+def load_html(file_path)
+  file_contents = File.open(file_path, 'r') { |f| f.read }
+  RDiscount.new(file_contents).to_html
+end
+
 class Post < ActiveRecord::Base
   set_table_name :blog_posts
   
@@ -25,17 +30,20 @@ end
 
 get '/posts' do
   file_names = %w(test.md)
-  @posts = file_names.collect { |e| [e.split('.')[0], 'blah blah blah'] }
+  @posts = file_names.collect do |e|
+    doc = Hpricot(load_html("posts/#{e}"))
+    [e.split('.')[0], 
+    doc.at('h2').inner_text] 
+  end
 
   haml :posts
 end
 
 get '/posts/:file_name' do
   file_path = "posts/#{params[:file_name]}.md"
-  head 404 unless File.exist? file_path
+  halt 404 unless File.exist? file_path
   
-  file_contents = File.open(file_path, 'r') { |f| f.read }
-  @content = RDiscount.new(file_contents).to_html
+  @content = load_html(file_path)
   
   haml :post
 end
