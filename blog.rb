@@ -2,6 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'rdiscount'
 require 'hpricot'
+require 'open-uri'
 
 def load_html(file_path)
   file_contents = File.open(file_path, 'r') { |f| f.read }
@@ -40,5 +41,9 @@ end
 get '/styles.css' do
   content_type 'text/css', :charset => 'utf-8'
   sass :styles
+end
+
+get '/tramtracker' do
+  open("http://tramtracker.com/#{params[:path]}").read
 end
 
