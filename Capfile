@@ -10,5 +10,5 @@ role :appserver, "whoisjohnbarton.com"
  
 desc "Redeploy the app"
 task :deploy do
-  run "/opt/apps/whoisjohnbarton/blog; git pull; rake restart_app"
+  run "cd /opt/apps/whoisjohnbarton/blog; git pull; rake restart_app"
 end
